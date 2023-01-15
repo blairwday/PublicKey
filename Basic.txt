@@ -14,3 +14,5 @@ systemctl restart sshd
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
 npm install sync-fetch utf8
+screen -S setPrices
+node PublicKey/setPrices.js
