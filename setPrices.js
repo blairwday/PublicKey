@@ -1,6 +1,19 @@
 setInterval(() => {
 
+    console.log();
+
+    console.log(queryLocalDatabase(
+        `
+        SELECT COUNT(*) as count 
+        FROM steamTradingCards 
+        WHERE NOT orderPrice = 0
+        `,
+        {file: 'setPrices'},
+    )?.[0]?.count);
+
     let res = defineOrderPrice();
+
+    console.log(res);
 
     if(res === 0) process.exit(0);
 
@@ -9,7 +22,7 @@ setInterval(() => {
 function defineOrderPrice () {
 
     //define location
-    const location = {file: 'sets.js', function: 'defineOrderPrice'};
+    const location = {file: 'setPrices.js', function: 'defineOrderPrice'};
 
     //define response types
     const RES = {
@@ -37,6 +50,7 @@ function defineOrderPrice () {
 
     //get the marketName from the entry
     let { marketName, id } = entry[0];
+    console.log(marketName);
 
     //set the order price and get the returned status
     let status = setOrderPrice(marketName, id);
@@ -64,7 +78,7 @@ function defineOrderPrice () {
 function setOrderPrice (marketName, id) {
 
     //define location
-    const location = {file: 'sets.js', function: 'setOrderPrice'};
+    const location = {file: 'setPrices.js', function: 'setOrderPrice'};
 
     //define status types 
     const STATUS = {
@@ -85,7 +99,7 @@ function setOrderPrice (marketName, id) {
 
     //select the median price with a fallback of the lowest sell order price
     let priceString = sellOrderData?.median_price ?? sellOrderData.lowest_price;
-    
+    console.log(priceString);
     //error handling
     if(!priceString) return STATUS.ERR_NO_LISTINGS;
 
@@ -113,7 +127,7 @@ function setOrderPrice (marketName, id) {
 function queryLocalDatabase (sql, queryData) {
 
 	//define localtion
-	const location = {file: 'data.js', function: 'queryLocalDatabase'};
+	const location = {file: 'setPrices.js', function: 'queryLocalDatabase'};
 
 	//input error handling
 	if(!sql || !queryData) return errorLog(`Invalid queryLocalDatabase Inputs`, JSON.stringify({sql, queryData, ...location}));
@@ -165,7 +179,7 @@ function handleQuery (query, queryData) {
 function errorLog (errorType, errorData) {
 
 	//define location
-	const location = {function: 'errorLog', file: 'data.js'};
+	const location = {function: 'errorLog', file: 'setPrices.js'};
 
 	//get the current date
 	const date = getDate();
