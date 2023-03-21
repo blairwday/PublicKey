@@ -6,6 +6,7 @@ cd ~
 git clone https://github.com/blairwday/PublicKey
 
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> /etc/ssh/sshd_config
 mkdir -p ~/.ssh
 cat ~/PublicKey/rsa.pub >> ~/.ssh/authorized_keys
 systemctl restart sshd
