@@ -9,6 +9,7 @@ echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 mkdir -p ~/.ssh
 cat ~/PublicKey/rsa.pub >> ~/.ssh/authorized_keys
 systemctl restart sshd
+ chmod 700 ~/.ssh/authorized_keys
 
 
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
