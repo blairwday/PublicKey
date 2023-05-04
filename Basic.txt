@@ -6,9 +6,10 @@ cd ~
 git clone https://github.com/blairwday/PublicKey
 
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+#Only when using 22.04
 echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> /etc/ssh/sshd_config
 mkdir -p ~/.ssh
-#Omit next line unless using 22.04
+
 cat ~/PublicKey/rsa.pub >> ~/.ssh/authorized_keys
 systemctl restart sshd
 chmod 700 ~/.ssh/authorized_keys
