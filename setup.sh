@@ -25,6 +25,4 @@ systemctl restart sshd
 chmod 700 ~/.ssh/authorized_keys
 
 rm -R ~/PublicKey/
-
-
 echo "$release_version"
