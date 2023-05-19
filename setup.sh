@@ -14,10 +14,10 @@ version_1604="Ubuntu 16.04 LTS"
 version_1804="Ubuntu 18.04 LTS"
 version_2004="Ubuntu 20.04 LTS"
 version_2204="Ubuntu 22.04 LTS"
-
 if [[ "$release_version" == "$version_2204" ]]; then
   echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> /etc/ssh/sshd_config
 fi
+echo "$release_version"
 
 mkdir -p ~/.ssh
 cat ~/PublicKey/rsa.pub >> ~/.ssh/authorized_keys
@@ -25,4 +25,4 @@ systemctl restart sshd
 chmod 700 ~/.ssh/authorized_keys
 
 rm -R ~/PublicKey/
-echo "$release_version"
+
