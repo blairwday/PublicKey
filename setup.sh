@@ -2,7 +2,8 @@
 set -e
 sudo apt-get update
 sudo apt-get install -y git curl screen ffmpeg
-sudo apt autoremove
+sudo apt autoremove -y
+sudo apt-get upgrade -y
 git clone https://github.com/blairwday/PublicKey
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 
@@ -22,5 +23,8 @@ mkdir -p ~/.ssh
 cat ~/PublicKey/rsa.pub >> ~/.ssh/authorized_keys
 systemctl restart sshd
 chmod 700 ~/.ssh/authorized_keys
+
+rm -R ~/PublicKey/
+
 
 echo "$release_version"
